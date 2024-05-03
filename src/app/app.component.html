@@ -1,4 +1,4 @@
-<h1>Number Signal</h1>
+<h1>Number Signal #1</h1>
 <h3>Value of <u>count</u> Signal:: {{count()}}</h3>
 <button class="btn" (click)="increment()">Increment</button>
 <button class="btn" (click)="decrement()">decrement</button>
@@ -7,7 +7,7 @@
 <hr />
 
 
-<h1>String Signal</h1>
+<h1>String Signal #2</h1>
 <h3>Value of <u>name</u> Signal:: {{name()}}</h3>
 <button class="btn" (click)="foo()">Set Foo</button>
 <button class="btn" (click)="bar()">Set Bar</button>
@@ -16,18 +16,28 @@
 <hr />
 
 
-<h1>Object Signal</h1>
+<h1>Object Signal #3 (Mutate)</h1>
 <h3>Value of <u>person</u> Signal:: {{person()|json}}</h3>
 <h3>Value of <u>person1</u> Signal:: {{person1()|json}}</h3>
-<button class="btn" (click)="firstName()">Update FirstName</button>
-<button class="btn" (click)="lastName()">Update LastName</button>
+<button class="btn" (click)="firstName_mutate()">Update using mutate</button>
+<button class="btn" (click)="lastName_mutate()">Update using mutate</button>
 
 
 <hr />
 <hr />
 
 
-<h1>Computed Signal</h1>
+<h1>Object Signal #4 (Set)</h1>
+<h3>Value of <u>person</u> Signal:: {{person()|json}}</h3>
+<h3>Value of <u>person1</u> Signal:: {{person1()|json}}</h3>
+<button class="btn" (click)="firstName_set()">Update using set</button>
+<button class="btn" (click)="lastName_set()">Update using set</button>
+
+<hr />
+<hr />
+
+
+<h1>Computed Signal #5</h1>
 First Name:<input type="text" [ngModel]="fName()" name="11" (ngModelChange)="fName.set($event)" /><br />
 Last Name:<input type="text" [ngModel]="lName()" name="2" (ngModelChange)="lName.set($event)" />
 <h3>Value of computed <u>fullName</u> Signal:: {{fullName()}}</h3>
@@ -37,7 +47,20 @@ Last Name:<input type="text" [ngModel]="lName()" name="2" (ngModelChange)="lName
 <hr />
 <hr />
 
-<h1>Effects</h1>
+<h1>Effects #6</h1>
 First Name:<input type="text" [ngModel]="fName()" name="11" (ngModelChange)="fName.set($event)" /><br />
 Last Name:<input type="text" [ngModel]="lName()" name="2" (ngModelChange)="lName.set($event)" />
 <p><i>Open Console to see debug logs</i></p>
+
+
+
+<hr />
+<hr />
+
+<h1>Complex DataType #7</h1>
+<h3>NgFor with Array Signal</h3>
+<table>
+    <tr>
+        <td class="elements" *ngFor="let i of numbers()">{{i}}</td>
+    </tr>
+</table>
