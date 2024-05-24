@@ -3,7 +3,7 @@ import { Component, computed, effect, signal } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
 
@@ -39,7 +39,7 @@ export class AppComponent {
   constructor() {
     //Effects #6
     effect(() => {
-      console.log("New values", this.fName(), this.lName());
+      console.log("New values in Effect", this.fName(), this.lName());
     })
   }
 
@@ -76,10 +76,6 @@ export class AppComponent {
   lastName_set() {
     this.person.set({ firstname: 'Car', lastName: 'Bike' });
 
-  }
-
-  test() {
-    // console.log('test')
   }
 
 }
