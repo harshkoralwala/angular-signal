@@ -14,32 +14,37 @@ export class AppComponent {
   name = signal('');
 
   //Object Signal #3 (Mutate)
-  //Object Signal #4 (Set)
   person = signal({ firstname: 'bacancy', lastName: 'Tech' });
   person1 = signal(this.person());
+
+  //Object Signal #4 (Set)
+  user = signal({ firstname: 'bacancy', lastName: 'Tech' });
+  user1 = signal(this.person());
+
 
   // Computed Signal #5
   fName = signal('');
   lName = signal('');
   fullName = computed(() => this.fName() + ' ' + this.lName());
+  //Computed Signal + example of Cached result #6
+  firstNameLazy = computed(() => "Lazy FirstName => " + this.fName() + '  ' + new Date().toLocaleTimeString());
+  lastNameLazy = computed(() => "Lazy LastName => " + this.lName() + '  ' + new Date().toLocaleTimeString());
 
-  //Computed Signal + example of Cached result
-  fullNameLazy = computed(() => {
-    console.log('Computed Signal')
-    if (this.fName()) {
-      return `The FirstName changed`;
-    } else {
-      return `The LastName changed`;
-    }
-  });
+  // Computed Signal #6
+  fName1 = signal('');
+  lName1 = signal('');
 
   //Complex DataType #7
   numbers = signal([1, 2, 5, 7, 8, 3, 1, 4, 8, 3, 33, 9]);
 
+
+  // Passing Signal to Child #8
+  first_name = signal('');
+
   constructor() {
     //Effects #6
     effect(() => {
-      console.log("New values in Effect", this.fName(), this.lName());
+      console.log("New values in Effect of signal fName() || lName() => ", this.fName(), this.lName());
     })
   }
 
@@ -61,21 +66,24 @@ export class AppComponent {
 
   firstName_mutate() {
     //Motifies and returns Existing Object,hence all reference will be updated
+    //Update the current value by mutating it in-place, and notify any dependents.
     this.person.mutate(t => { t.firstname = 'foo' });
   }
 
   lastName_mutate() {
+    // Update the current value by mutating it in-place, and notify any dependents.
     this.person.mutate(t => { t.lastName = 'bar' });
   }
 
   firstName_set() {
     //Returns new Object,So new memory allocation,Other variable still refers old memory references
-    this.person.set({ firstname: 'Apple', lastName: 'Banana' });
+    //Directly set the signal to a new value, and notify any dependents.
+    this.user.set({ firstname: 'Apple', lastName: this.user().lastName });
   }
 
   lastName_set() {
-    this.person.set({ firstname: 'Car', lastName: 'Bike' });
-
+    //Directly set the signal to a new value, and notify any dependents.
+    this.user.set({ firstname: 'Car', lastName: 'Bike' });
   }
 
 }

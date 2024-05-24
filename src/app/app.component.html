@@ -3,6 +3,7 @@
 <button class="btn" (click)="increment()">Increment</button>
 <button class="btn" (click)="decrement()">decrement</button>
 
+
 <hr />
 <hr />
 
@@ -12,6 +13,7 @@
 <button class="btn" (click)="foo()">Set Foo</button>
 <button class="btn" (click)="bar()">Set Bar</button>
 
+
 <hr />
 <hr />
 
@@ -19,8 +21,12 @@
 <h1>Object Signal #3 (Mutate)</h1>
 <h3>Value of <u>person</u> Signal:: {{person()|json}}</h3>
 <h3>Value of <u>person1</u> Signal:: {{person1()|json}}</h3>
-<button class="btn" (click)="firstName_mutate()">Update using mutate</button>
-<button class="btn" (click)="lastName_mutate()">Update using mutate</button>
+<button class="btn" (click)="firstName_mutate()">Update first name using mutate</button>
+<button class="btn" (click)="lastName_mutate()">Update last name using mutate</button>
+<ul>
+    <li>Update the current value by mutating it in-place, and notify any dependents.</li>
+    <li>few values can be passed,not mandatory to pass all values</li>
+</ul>
 
 
 <hr />
@@ -28,31 +34,47 @@
 
 
 <h1>Object Signal #4 (Set)</h1>
-<h3>Value of <u>person</u> Signal:: {{person()|json}}</h3>
-<h3>Value of <u>person1</u> Signal:: {{person1()|json}}</h3>
-<button class="btn" (click)="firstName_set()">Update using set</button>
-<button class="btn" (click)="lastName_set()">Update using set</button>
+<h3>Value of <u>user</u> Signal:: {{user()|json}}</h3>
+<h3>Value of <u>user1</u> Signal:: {{user1()|json}}</h3>
+<button class="btn" (click)="firstName_set()">Update first name using set</button>
+<button class="btn" (click)="lastName_set()">Update last name using set</button>
+<ul>
+    <li>Directly set the signal to a new value, and notify any dependents.</li>
+    <li>All values must be passed,though we want to update only few of them</li>
+</ul>
+
 
 <hr />
 <hr />
 
 
 <h1>Computed Signal #5</h1>
-First Name:<input type="text" [ngModel]="fName()" name="11" (ngModelChange)="fName.set($event)" /><br />
-Last Name:<input type="text" [ngModel]="lName()" name="2" (ngModelChange)="lName.set($event)" />
+First Name:<input type="text" [ngModel]="fName()" name="fName" (ngModelChange)="fName.set($event)" /><br />
+Last Name:<input type="text" [ngModel]="lName()" name="lName" (ngModelChange)="lName.set($event)" />
 <h3>Value of computed <u>fullName</u> Signal:: {{fullName()}}</h3>
-<h3>Value of computed <u>fullNameLazy</u> Signal:: {{fullNameLazy()}}</h3>
-<i>Open console to check when fullName signal is called</i>
+<h3>Value of computed <u>firstNameLazy</u> Signal:: {{firstNameLazy()}}</h3>
+<h3>Value of computed <u>lastNameLazy</u> Signal:: {{lastNameLazy()}}</h3>
+<i>Open console to check when firstNameLazy & lastNameLazy signal is called</i>
+<ul>
+    <li>On page load,all computed signals called by default with initial values of signals </li>
+    <li>Changing the value of other signal value will not call computed signal</li>
+</ul>
+
 
 <hr />
 <hr />
+
 
 <h1>Effects #6</h1>
-First Name:<input type="text" [ngModel]="fName()" name="11" (ngModelChange)="fName.set($event)" /><br />
-Last Name:<input type="text" [ngModel]="lName()" name="2" (ngModelChange)="lName.set($event)" />
+First Name:<input type="text" [ngModel]="fName1()" name="fName1" (ngModelChange)="fName1.set($event)" /><br />
+Last Name:<input type="text" [ngModel]="lName1()" name="lName1" (ngModelChange)="lName1.set($event)" />
 <p><i>Open Console to see debug logs</i></p>
-
-
+<ul>
+    <li>Must be in constructor</li>
+    <li>On page load,compiler identifies effects,runs it and maps it for which signal value change to trigger / re-run it</li>
+    <li>Changing the value of any mentioned signal,the effects will be called</li>
+    <li>No lifecycle Hook - OnChanges Needed</li>
+</ul>
 
 <hr />
 <hr />
@@ -64,3 +86,12 @@ Last Name:<input type="text" [ngModel]="lName()" name="2" (ngModelChange)="lName
         <td class="elements" *ngFor="let i of numbers()">{{i}}</td>
     </tr>
 </table>
+
+
+<hr />
+<hr />
+
+
+<h1>Passing Signal to Child #8</h1>
+First Name:<input type="text" [ngModel]="first_name()" name="first_name " (ngModelChange)="first_name.set($event)" />
+<app-child [first_name]="first_name" />
